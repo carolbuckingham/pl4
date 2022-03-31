@@ -22,21 +22,22 @@
     center: [-77.830, 46.293]
   });
   map.on('load', () => {
+    map.addSource('dumoine-tote-road', {
+      type: 'vector',
+      url: 'mapbox://cbucking.90yd7vbe'
+    });
     map.addLayer({
       'id': 'toteRoad',
       'type': 'line',
-      'source': {
-	    'type': 'vector'
-	    'url': 'mapbox://cbucking.90yd7vbe'
-      }
-      'source-layer': 'toteRoad-7y3u3y',
+      'source': 'dumoine-tote-road',
+      'source-layer': 'trail',
       'layout': {
         'line-join': 'round',
         'line-cap': 'round'
       },
       'paint': {
         'line-color': '#888',
-        'line-width': 8
+        'line-width': 4
       }
     });
   });
