@@ -18,28 +18,56 @@
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v10',
-    zoom: 3,
-    center: [-100.0, 60.0]
+    zoom: 12,
+    center: [-77.838243, 46.302015]
   });
-  map.on('load', function() {
-        map.addSource('wms-test-source', {
-            'type': 'raster',
-            'tiles': [
-		'https://luna.flemingcollege.ca/arcgis/rest/services/DemoMapExample/MapServer/export?bbox={bbox-epsg-3857}&bboxSR=EPSG%3A3857&layers=0&layerDefs=&size=256%2c256&imageSR=&format=png&transparent=true&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&f=image'
-                /* 'https://luna.flemingcollege.ca/arcgis/rest/services/bigbrains60/CanadaCbucking/MapServer/export?bbox={bbox-epsg-3857}&bboxSR=EPSG%3A3857&layers=0&layerDefs=&size=256%2C256&imageSR=&historicMoment=&format=png&transparent=true&dpi=&time=&timeRelation=esriTimeRelationOverlaps&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&rotation=&datumTransformations=&layerParameterValues=&mapRangeValues=&layerRangeValues=&clipping=&spatialFilter=&f=image'
-		 I tried to get my map to work but I couldn't figure out where I went wrong after troubleshooting for an hour. I've included the link that I was attempting to use above. */
-            ],
-	    'tileSize': 256
-        });
-        map.addLayer(
-            {
-                'id': 'wms-test-layer',
-                'type': 'raster',
-                'source': 'wms-test-source',
-                'paint': {}
-            },
-            'aeroway-line'
-        );
+  map.on('load', () => {
+    map.addSource('route', {
+    'type': 'geojson',
+    'data': {
+        'type': 'Feature',
+        'properties': {},
+        'geometry': {
+          'type': 'LineString',
+          'coordinates': [
+            [-122.483696, 37.833818],
+            [-122.483482, 37.833174],
+            [-122.483396, 37.8327],
+            [-122.483568, 37.832056],
+            [-122.48404, 37.831141],
+            [-122.48404, 37.830497],
+            [-122.483482, 37.82992],
+            [-122.483568, 37.829548],
+            [-122.48507, 37.829446],
+            [-122.4861, 37.828802],
+            [-122.486958, 37.82931],
+            [-122.487001, 37.830802],
+            [-122.487516, 37.831683],
+            [-122.488031, 37.832158],
+            [-122.488889, 37.832971],
+            [-122.489876, 37.832632],
+            [-122.490434, 37.832937],
+            [-122.49125, 37.832429],
+            [-122.491636, 37.832564],
+            [-122.492237, 37.833378],
+            [-122.493782, 37.833683]
+          ]
+        }
+      }
     });
+    map.addLayer({
+      'id': 'route',
+      'type': 'line',
+      'source': 'route',
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-color': '#888',
+        'line-width': 8
+      }
+    });
+  });
 </script>
 </body>
